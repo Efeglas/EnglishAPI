@@ -1,0 +1,163 @@
+# My config file
+config.json
+
+# .NET Core
+## Build artifacts
+bin/
+obj/
+
+## .NET Core Tools
+.project.json
+.project.lock.json
+
+## Visual Studio Code
+.vscode/
+
+## Visual Studio 2015/2017
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Resharper
+_ReSharper*/
+*.ReSharper*
+*.DotSettings.user
+
+## Build results of an ATL project
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]in/
+[Oo]bj/
+
+## MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## NUNIT
+*.VisualState.xml
+TestResult.xml
+
+## Build Results of an ATL Project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+## .NET Core CLI Tools
+.nuget/
+
+## Build Results of a T4 Template
+[Tt]emp/[Pp]reprocessed/
+
+## NuGet Packages Directory
+*/packages/*
+
+## StyleCop
+StyleCopReport.xml
+
+## Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp_proj
+
+## Compiled Object files and Libraries for C++
+*.slo 
+*.lo  
+*.o   
+*.obj 
+
+## Compiled Dynamic libraries (Windows)
+*.dll  
+*.so   
+*.so.* 
+*.dylib
+
+## Executables (Windows)
+*.exe  
+*.com  
+*.bat  
+*.cmd 
+*.vbs  
+*.vbe  
+*.js   
+*.jse  
+*.wsf  
+*.wsh  
+*.[aA][dD][pP]
+
+## Debug files (Windows)
+*.[pP][dD][bB]
+*.[iI][lL][kK]
+*.[iI][lL][mM]
+*.[pP][dD][bB]
+*.[iI][nN][iI]
+*.[sS][oO]
+
+# ASP.NET Core Web API specific files/folders to ignore
+
+# .NET Core Build Output:
+bin/
+obj/
+
+# Visual Studio Code:
+.vscode/
+
+# User-specific files:
+**/.history/*
+**/.vs/*
+
+# Build results of an ATL project:
+[Dd]ebug/
+[Rr]elease/
+
+# MSTest test Results:
+[Tt]est[Rr]esult*/
+
+# NUnit:
+[Nn]Unit[Rr]esult*/
+
+# ReSharper:
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Test Results:
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# NCrunch:
+_NCrunch_*
+.*crunch*/local.xml
+
+# Installshield output folder:
+[Ee]xpress/
+
+# DocProject is a documentation generator add-in:
+DocProject/buildhelp/
+DocProject/Help/*.HxT
+DocProject/Help/*.HxC
+DocProject/Help/*.hhc
+DocProject/Help/*.hhk
+DocProject/Help/*.hhp
+
+# Click-Once directory:
+publish/
+
+# Publish Web Output:
+wwwroot/*
