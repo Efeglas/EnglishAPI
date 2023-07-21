@@ -25,34 +25,28 @@ namespace EnglishAPI.Controllers
             }
 
             var db = new MyDbContext();
-            var user = db.Users.Where<User>(u => u.Username == model.Username).First();
+            var user = db.Users.Where<User>(u => u.Username == model.Username).FirstOrDefault();
 
             PasswordHasher<User> pwh = new PasswordHasher<User>();
-            string hash = pwh.HashPassword(user, "valami");
             
-            Console.WriteLine(hash);
-            string test = "AQAAAAEAACcQAAAAEF3VsTce8p3Vm1HxpB7rNSXN9ZdrCaMS5UvG4CcKDGHg/TtTFHScXMfhxEA32V2dTQ==";
-            if (pwh.VerifyHashedPassword(user, test, "valami") == PasswordVerificationResult.Success)
+            if (user != null && pwh.VerifyHashedPassword(user, user.Password, model.Password) == PasswordVerificationResult.Success)
             {
-                Console.WriteLine("OK");
+                Response.Cookies.Append("username", user.Username, new CookieOptions()
+                {
+                    Expires = DateTime.Now.AddDays(1),
+                    Path = "/",
+                });
+                Response.Cookies.Append("userid", user.Id.ToString(), new CookieOptions()
+                {
+                    Expires = DateTime.Now.AddDays(1),
+                    Path = "/",
+                });
+
+                return Ok(new MyResponse("Successful login"));
             }
             else {
-                Console.WriteLine("NOK");
-            }
-            //Console.WriteLine(user.Username);
-            //Console.WriteLine(user.Password);
-
-            if (model.Username == "admin" && model.Password == "admin")
-            {
-                Response.Cookies.Append("token", "valamitest", new CookieOptions() { 
-                    Expires = DateTime.Now.AddDays(1),
-                    Path = "/",                                 
-                });
-                
-                return Ok(new MyResponse("Successful login"));
-            }      
-
-            return Unauthorized();         
+                return Unauthorized();
+            }           
         }
 
         [HttpPost(template: "Register")]
@@ -60,7 +54,6 @@ namespace EnglishAPI.Controllers
          
             try
             {
-
                 if (model == null)
                 {
                     return BadRequest();
