@@ -15,7 +15,6 @@ namespace EnglishAPI.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        //[HttpPost(template: "Login/{id:int}")]
         [HttpPost(template: "Login")]
         public ActionResult Login([FromBody] LoginRequestModel model)
         {
@@ -31,16 +30,10 @@ namespace EnglishAPI.Controllers
             
             if (user != null && pwh.VerifyHashedPassword(user, user.Password, model.Password) == PasswordVerificationResult.Success)
             {
-                Response.Cookies.Append("username", user.Username, new CookieOptions()
-                {
-                    Expires = DateTime.Now.AddDays(1),
-                    Path = "/",
-                });
-                Response.Cookies.Append("userid", user.Id.ToString(), new CookieOptions()
-                {
-                    Expires = DateTime.Now.AddDays(1),
-                    Path = "/",
-                });
+                CookieOptions cookieOptions = new CookieOptions() { Expires = DateTime.Now.AddDays(1), Path = "/" };
+
+                Response.Cookies.Append("username", user.Username, cookieOptions);
+                Response.Cookies.Append("userid", user.Id.ToString(), cookieOptions);
 
                 return Ok(new MyResponse("Successful login"));
             }
