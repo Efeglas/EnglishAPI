@@ -8,6 +8,11 @@ namespace EnglishAPI
         static Config() {
             try
             {
+                /* config.json
+                    {
+                        "connectionString": "[mysql connection string]"
+                    }
+                 */
                 string jsonString = File.ReadAllText("./config.json");
                 JsonElement jsonObject = JsonSerializer.Deserialize<JsonElement>(jsonString);
                 ConnectionString = jsonObject.GetProperty("connectionString").GetString();
