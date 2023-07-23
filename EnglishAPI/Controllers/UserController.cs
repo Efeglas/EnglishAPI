@@ -32,8 +32,8 @@ namespace EnglishAPI.Controllers
             {
                 CookieOptions cookieOptions = new CookieOptions() { Expires = DateTime.Now.AddDays(1), Path = "/" };
 
-                Response.Cookies.Append("username", user.Username, cookieOptions);
-                Response.Cookies.Append("userid", user.Id.ToString(), cookieOptions);
+                //TEMPORARY COOKIES
+                Response.Cookies.Append("username", user.Username, cookieOptions);             
 
                 return Ok(new MyResponse("Successful login"));
             }
@@ -82,10 +82,11 @@ namespace EnglishAPI.Controllers
             }
         }
 
-        //[HttpGet]
-        //public LoginResponse GetLogin(int id)
-        //{
-        //    return new LoginResponse(false, "Successful login", "data");
-        //}
+        [HttpPost(template: "Logout")]
+        public ActionResult Logout()
+        {
+            Response.Cookies.Delete("username");
+            return Ok(new MyResponse("Logged out"));         
+        }
     }
 }
