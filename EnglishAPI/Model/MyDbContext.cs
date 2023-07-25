@@ -10,6 +10,8 @@ namespace EnglishAPI.Model
     {
         
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Word> Words { get; set; }
         public string ConnectionString { get; }
 
         public MyDbContext()
@@ -18,8 +20,18 @@ namespace EnglishAPI.Model
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {         
+            options.UseMySql(ConnectionString, ServerVersion.AutoDetect(ConnectionString));           
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            options.UseMySql(ConnectionString, ServerVersion.AutoDetect(ConnectionString));
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().Property(e => e.Visible).HasDefaultValue(1);
+            modelBuilder.Entity<Category>().Property(e => e.Visible).HasDefaultValue(1);
+            modelBuilder.Entity<Word>().Property(e => e.Visible).HasDefaultValue(1);
+
         }
     }
 }
