@@ -5,6 +5,7 @@ config.json
 ## Build artifacts
 bin/
 obj/
+Migrations/
 
 ## .NET Core Tools
 .project.json
