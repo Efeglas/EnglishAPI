@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace EnglishAPI.Model
 {
@@ -13,6 +14,10 @@ namespace EnglishAPI.Model
         [Required]
         [Column(TypeName = "varchar(100)")]
         public string Password { get; set; }
+        public ICollection<Word> Words { get; } = new List<Word>();
+
+        [DefaultValue(true)]
+        public bool Visible { get; set; }
 
         public User(string username, string password)
         {
