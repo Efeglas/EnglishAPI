@@ -18,28 +18,38 @@ namespace EnglishAPI.Controllers
         [HttpPost(template: "Login")]
         public ActionResult Login([FromBody] LoginRequestModel model)
         {
-            if (model == null)
+            try
             {
-                return BadRequest();
-            }
+                if (model == null)
+                {
+                    return BadRequest();
+                }
 
-            var db = new MyDbContext();
-            var user = db.Users.Where<User>(u => u.Username == model.Username).FirstOrDefault();
+                var db = new MyDbContext();
+                var user = db.Users.Where<User>(u => u.Username == model.Username).FirstOrDefault();
 
-            PasswordHasher<User> pwh = new PasswordHasher<User>();
+                PasswordHasher<User> pwh = new PasswordHasher<User>();
             
-            if (user != null && pwh.VerifyHashedPassword(user, user.Password, model.Password) == PasswordVerificationResult.Success)
-            {
-                CookieOptions cookieOptions = new CookieOptions() { Expires = DateTime.Now.AddDays(1), Path = "/" };
+                if (user != null && pwh.VerifyHashedPassword(user, user.Password, model.Password) == PasswordVerificationResult.Success)
+                {
+                    CookieOptions cookieOptions = new CookieOptions() { Expires = DateTime.Now.AddDays(1), Path = "/" };
 
-                //TEMPORARY COOKIES
-                Response.Cookies.Append("username", user.Username, cookieOptions);             
+                    //TEMPORARY COOKIES
+                    Response.Cookies.Append("username", user.Username, cookieOptions);             
 
-                return Ok(new MyResponse("Successful login"));
+                    return Ok(new MyResponse("Successful login"));
+                }
+                else {
+                    return Unauthorized();
+                }           
             }
-            else {
-                return Unauthorized();
-            }           
+            catch (Exception e)
+            {
+                //Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);
+                return Problem(e.Message);
+                //return StatusCode(500);
+            }
         }
 
         [HttpPost(template: "Register")]
